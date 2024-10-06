@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Blog Posts{% endblock %}
+
+{% block content %}
+    <h1>Welcome to Blog</h1>
+    <ul>
+        {% for post in posts %}
+            <li>
+                <h2>{{ post.title }}</h2>
+                <h6>{{ post.created_at|date:"F j, Y" }}</h6>
+                <p>{{ post.content|truncatewords:10 }}</p>
+                <p>By <b>{{ post.author_or_default }}</b></p>
+                <button>
+                    <a href="{% url 'post:posts' post.slug %}">Read</a>
+                </button>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

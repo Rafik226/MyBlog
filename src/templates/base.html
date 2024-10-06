@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} Blog {% endblock %}</title>
+    <link rel="stylesheet" href="{% static "css/style.css" %}">
+</head>
+<body>
+    <!-- Navigation bar -->
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <a href="{% url 'post:home' %}" class="logo">MyBlog</a>
+                <ul class="nav-links">
+                    <li><a href="{% url 'post:home' %}">Home</a></li>
+                    {% if request.user.is_authenticated %}
+                    <li><a href="{% url 'post:create' %}">Create a new post</a></li>
+                    <li><a href="">Logout</a></li>
+                    {% else %}
+                    <li><a href="">Login</a></li>
+                    <li><a href="">Sign Up</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main content area -->
+    <main class="content">
+        <div class="container">
+            {% block content %} {% endblock %}
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 MyBlog - All Rights Reserved</p>
+        </div>
+    </footer>
+</body>
+</html>

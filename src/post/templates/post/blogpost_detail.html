@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+    <div class="post-container">
+        <h1>{{ posts.title }}</h1>
+        <h6>{{ posts.created_on|date:"d M, Y" }}</h6>
+        <p>Par <b>{{ posts.author_or_default }}</b></p>
+        <div class="post-content">
+            <p>{{ posts.content|safe }}</p>
+        </div>
+        {% if posts.thumbnail %}
+            <div class="post-thumbnail">
+                <img src="{{ posts.thumbnail.url }}" alt="{{ posts.title }}">
+            </div>
+        {% endif %}
+        <div class="post-actions">
+            {% if request.user.is_authenticated %}
+                <button><a href="{% url 'post:edit' posts.slug %}">edit</a></button>
+                <button><a href="{% url 'post:delete' posts.slug %}">delete</a></button>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
